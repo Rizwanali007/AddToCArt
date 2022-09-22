@@ -1,19 +1,12 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import AppNavigator from './src/navigation/appNavigator'
-import { NavigationContainer } from '@react-navigation/native';
-import store from './src/store'
-import { Provider } from 'react-redux';
-
+import React from "react";
+import Cart from "./src/components/Cart";
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Provider store={store}>
-        <AppNavigator />
-      </Provider>
-    </NavigationContainer>
-  )
-}
+    <>
+      <Cart />
+    </>
+  );
+};
 
-export default App
+export default App;
