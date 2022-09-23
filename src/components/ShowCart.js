@@ -1,5 +1,5 @@
 import { } from 'react-native'
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 import ContextCart from './ContextCart';
 import { products } from '../../assets/products';
 import { reducer } from '../reducers/reducer';
@@ -14,7 +14,7 @@ const initialState = {
     totalItem: 0,
 }
 
-const Cart = () => {
+const ShowCart = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -26,18 +26,30 @@ const Cart = () => {
     }
 
     const clearCart = () => {
-        return dispatch({type: "CLEAR_CART"})
+        return dispatch({ type: "CLEAR_CART" })
     }
 
     const increment = (item) => {
-        return dispatch ({
+        return dispatch({
             type: "INCREMENT",
             payload: item.id
         })
     }
+
+    const decrement = (item) => {
+        return dispatch({
+            type: "DECREMENT",
+            payload: item.id
+        })
+    }
+
+    useEffect(() => {
+        dispatch({ type: "GET_TOTAL" });
+
+    }, [state.item])
     return (
 
-        <CartContext.Provider value={{ ...state, removeItem, clearCart, increment }}>
+        <CartContext.Provider value={{ ...state, removeItem, clearCart, increment, decrement }}>
             <ContextCart />
         </CartContext.Provider>
 
@@ -45,4 +57,4 @@ const Cart = () => {
 
 }
 
-export default Cart
+export default ShowCart

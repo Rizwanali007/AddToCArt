@@ -1,10 +1,10 @@
 import React from "react";
-import Cart from "./src/components/Cart";
+import AppNavigator from "./src/navigation/AppNavigator";
 
 const App = () => {
   return (
     <>
-      <Cart />
+      <AppNavigator />
     </>
   );
 };

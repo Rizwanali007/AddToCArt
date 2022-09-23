@@ -1,15 +1,13 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, } from 'react'
+import screenNames from '../helpers/screenNames';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import  { CartContext } from './Cart';
+import { CartContext } from './ShowCart';
 
-const ContextCart = () => {
-    const { item } = useContext(CartContext)
-    const { removeItem } = useContext(CartContext)
-    const { clearCart } = useContext(CartContext)
-    const { increment } = useContext(CartContext)
+const ContextCart = ({navigation}) => {
 
-    const [count, setCount] = useState(0)
+    const { item, removeItem, clearCart, increment, decrement, totalItem, totalAmount } = useContext(CartContext)
+
 
     if (item.length === 0) {
         return (
@@ -43,17 +41,23 @@ const ContextCart = () => {
                     position: "absolute", height: 30, width: 30,
                     borderRadius: 10, backgroundColor: "skyblue",
                     alignItems: "center", right: 25, bottom: 15,
-                    justifyContent: 'center',
+                    justifyContent: 'center', marginRight: 8
                 }}>
-                    <Text style={{ color: "white", fontWeight: "bold", }}>0</Text>
+                    <Text style={{ color: "white", fontWeight: "bold", }}>{totalItem}</Text>
                 </View>
             </View>
-            <View style={{ marginLeft: 330, marginTop: -40 }}>
+            <View style={{ marginLeft: 320, marginTop: -40, }}>
                 <FontAwesome5 name="shopping-cart" size={25} />
+            </View>
+            <View style={{ marginLeft: 15, marginTop: -15 }}>
+                <TouchableOpacity onPress={() => {navigation.navigate(screenNames.Home)}}>
+                    <Text>Back</Text>
+                    {/* <FontAwesome5 name="arrow-left" size={25} /> */}
+                </TouchableOpacity>
             </View>
             <View style={{ marginTop: 30 }}>
                 <Text style={{ fontSize: 30, fontWeight: "700", marginLeft: 20, textDecorationLine: 'underline' }}>Shopping Cart</Text>
-                <Text style={{ marginLeft: 20, marginTop: 5, fontWeight: "500" }}>you have 0 items in shopping cart</Text>
+                <Text style={{ marginLeft: 20, marginTop: 5, fontWeight: "500" }}>you have {totalItem} items in shopping cart</Text>
             </View>
             <View style={{ marginTop: 25, alignItems: "center" }}>
                 <FlatList
@@ -90,7 +94,7 @@ const ContextCart = () => {
                 />
             </View>
             <View style={{ alignItems: "center", marginTop: 15, }}>
-                <Text style={{ fontWeight: "500" }}> Cart Total: 2200rs</Text>
+                <Text style={{ fontWeight: "500" }}> Cart Total: {totalAmount}rs</Text>
                 <TouchableOpacity style={{ borderWidth: 1, marginTop: 15, borderRadius: 10 }} >
                     <Text style={{ fontSize: 20, fontWeight: "500" }}> CHECKOUT </Text>
                 </TouchableOpacity>
